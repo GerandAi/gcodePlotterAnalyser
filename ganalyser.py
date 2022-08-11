@@ -82,11 +82,11 @@ zeros = np.zeros(len(h))
 #from mpl_toolkits import mplot3d
 import matplotlib.pyplot as plt
 #plt.rcParams["figure.autolayout"] = True
-fig = plt.figure()
+#######################fig = plt.figure()
 ax = plt.axes(projection="3d")
 ##ax.scatter(x, y, z, c='red', s=1)
+ax.plot_trisurf(x, y, z, linewidth = 0.2, antialiased = True)
 ##ax.plot(x, y, z, color='black')
-##ax.plot_trisurf(x, y, z, linewidth = 0.2, antialiased = True)
 hfc = np.divide(fc, 2.0)
 kfc = np.multiply(hfc[::-1], -1.0)
 fc = np.append(hfc, kfc)
@@ -105,4 +105,22 @@ ax.scatter(0, 0, -bsize, c='grey', s=1)
 #ax.scatter(fc, zeros, h, c='red', s=1)
 ax.plot(fc, zeros, h, color='black')
 ax.plot([fc[-1], fc[0]], [0, 0], [h[-1], h[0]], color='black')
+plt.show()
+
+fp = open("flategg.txt", 'w')
+for index in range(len(fc)):
+    fp.write(str(fc[index])+"\t")
+    fp.write(str(h[index])+"\t")
+    fp.write("\n")
+fp.close()
+bsize = 180
+######################################
+###### Generating Bounding-Box #######
+plt.scatter(bsize, 0, c='grey', s=1) #
+plt.scatter(-bsize, 0, c='grey', s=1)#
+plt.scatter(0, bsize, c='grey', s=1) #
+plt.scatter(0, -bsize, c='grey', s=1)#
+######################################
+plt.plot(fc, h, color='black')
+plt.plot([fc[-1], fc[0]], [h[-1], h[0]], color='black')
 plt.show()
